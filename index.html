@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manual del Panel de Autor · Editorial Dunken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#004aad;--azul-osc:#003c8f;--azul-claro:#0a59c4;
+    --naranja:#f88f38;--naranja-osc:#d8730f;--naranja-hondo:#b85f0e;
+    --naranja-suave:#fdeddc;--naranja-claro:#fef5ea;
+    --azul-suave:#e9f0fa;--crema:#fbf6ee;--papel:#fffefb;
+    --tinta:#2a2118;--gris:#6b6256;--linea:#ece4d6;
+    --verde:#1f9d55;--verde-suave:#e4f4e9;
+    --sombra:0 16px 46px -18px rgba(120,70,10,.32);
+    --sombra-sm:0 7px 22px -10px rgba(120,70,10,.26);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Open Sans',sans-serif;color:var(--tinta);background:var(--crema);line-height:1.62;-webkit-font-smoothing:antialiased;}
+  ::selection{background:var(--naranja);color:#fff;}
+  a{color:var(--azul);}
+
+  /* HERO */
+  .hero{position:relative;background:linear-gradient(160deg,#f88f38 0%,#ef7f22 48%,#d8730f 100%);color:#fff;padding:62px 24px 150px;overflow:hidden;text-align:center;}
+  .blob{position:absolute;border-radius:50%;pointer-events:none;}
+  .blob.b1{width:360px;height:360px;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 70%);top:-140px;left:-100px;}
+  .blob.b2{width:300px;height:300px;background:radial-gradient(circle,rgba(0,74,173,.22),transparent 70%);bottom:-120px;right:-80px;}
+  .float-el{position:absolute;opacity:.5;animation:bob 6.5s ease-in-out infinite;}
+  .float-el.f1{top:54px;right:9%;animation-delay:0s;}
+  .float-el.f2{bottom:124px;left:10%;animation-delay:2s;}
+  .float-el.f3{top:130px;left:13%;animation-delay:3.8s;}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-7deg);}50%{transform:translateY(-13px) rotate(3deg);}}
+  .hero-inner{position:relative;max-width:760px;margin:0 auto;z-index:3;}
+  .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.5);border-radius:40px;padding:7px 18px 7px 14px;font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;margin-bottom:24px;}
+  .badge svg{width:15px;height:15px;}
+  .hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2.3rem,6.2vw,3.85rem);line-height:1.07;margin-bottom:16px;}
+  .hero h1 em{color:#0a3d8f;font-style:italic;text-decoration:underline;text-decoration-color:rgba(10,61,143,.5);text-underline-offset:6px;text-decoration-thickness:3px;}
+  .hero .lead{font-size:clamp(1rem,2.3vw,1.18rem);color:#fff4e8;max-width:560px;margin:0 auto 6px;}
+  .hero-mark{margin-top:30px;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+  .scroll-cue{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);z-index:3;color:rgba(255,255,255,.8);animation:bob2 2s ease-in-out infinite;}
+  @keyframes bob2{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(7px);}}
+
+  /* LAYOUT */
+  .wrap{max-width:900px;margin:-95px auto 0;padding:0 20px 80px;position:relative;z-index:5;}
+  .card{background:var(--papel);border-radius:22px;box-shadow:var(--sombra);padding:44px 42px;margin-bottom:26px;border:1px solid var(--linea);}
+  .sec-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:8px;}
+  .sec-ico{flex-shrink:0;width:54px;height:54px;border-radius:16px;background:var(--naranja-suave);display:flex;align-items:center;justify-content:center;}
+  .sec-ico svg{width:29px;height:29px;}
+  .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--naranja-osc);margin-bottom:3px;}
+  h2{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.5rem,3.6vw,2.05rem);color:var(--azul);line-height:1.16;}
+  .sec-sub{color:var(--gris);font-size:1rem;margin:14px 0 4px;}
+  .sec-sub.lead-intro{font-size:1.08rem;color:#3a3327;line-height:1.7;}
+  .hl{color:var(--azul);font-weight:600;}
+  h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;color:var(--tinta);}
+  p{color:var(--gris);}
+  p strong,li strong,span strong{color:var(--tinta);font-weight:600;}
+
+  /* INTRO destacada */
+  .intro-banner{display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,var(--azul-suave),#fff);border:1px solid #c4d4ec;border-radius:16px;padding:22px 24px;margin-top:20px;}
+  .intro-banner .ib-ico{flex-shrink:0;width:58px;height:58px;border-radius:50%;background:#fff;border:2px solid var(--azul);display:flex;align-items:center;justify-content:center;}
+  .intro-banner .ib-ico svg{width:30px;height:30px;}
+  .intro-banner p{margin:0;font-size:.97rem;}
+  .intro-banner p b{font-family:'Fraunces',serif;color:var(--azul);}
+
+  /* ÍNDICE */
+  .toc-card{background:linear-gradient(155deg,#004aad,#0a59c4);border-radius:22px;padding:32px 36px;margin-bottom:26px;box-shadow:var(--sombra);color:#fff;}
+  .toc-card h4{font-family:'Fraunces',serif;font-size:1.12rem;margin-bottom:14px;color:#fff;}
+  .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .toc-grid a{display:flex;align-items:center;gap:11px;text-decoration:none;color:#fff;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.09);transition:background .16s,transform .16s;font-size:.93rem;font-weight:500;}
+  .toc-grid a:hover{background:rgba(255,255,255,.22);transform:translateX(3px);}
+  .toc-grid a .tn{font-family:'Fraunces',serif;font-weight:700;color:var(--naranja);font-size:.95rem;min-width:20px;}
+
+  /* ACCESO - PASOS */
+  .access-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:22px;}
+  .access{border:2px solid var(--linea);border-radius:18px;padding:24px;background:var(--papel);transition:border-color .2s,transform .2s;}
+  .access:hover{border-color:var(--naranja);transform:translateY(-4px);}
+  .access .acico{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;background:var(--naranja-suave);}
+  .access .acico svg{width:30px;height:30px;}
+  .access .actag{font-size:.71rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--naranja-osc);margin-bottom:4px;}
+  .access h3{font-size:1.16rem;margin-bottom:8px;}
+  .access p{font-size:.92rem;margin:0;}
+  .access ol{margin:8px 0 0 0;padding-left:18px;}
+  .access ol li{font-size:.9rem;color:var(--gris);margin-bottom:4px;}
+
+  /* MODOS DEL PANEL */
+  .modo{border-radius:18px;border:1px solid var(--linea);overflow:hidden;margin-top:20px;}
+  .modo-head{display:flex;align-items:center;gap:14px;padding:20px 24px;}
+  .modo-head .mhico{width:50px;height:50px;border-radius:13px;flex-shrink:0;background:#fff;display:flex;align-items:center;justify-content:center;}
+  .modo-head .mhico svg{width:27px;height:27px;}
+  .modo-head .mhtag{font-size:.71rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .modo-head .mhtitle{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:var(--tinta);}
+  .modo.seguimiento .modo-head{background:var(--azul-suave);}
+  .modo.seguimiento .mhtag{color:var(--azul);}
+  .modo.comercial .modo-head{background:var(--naranja-suave);}
+  .modo.comercial .mhtag{color:var(--naranja-osc);}
+  .modo-body{padding:14px 24px 22px;background:var(--papel);}
+  .modo-body .mintro{font-size:.93rem;padding:12px 0 6px;}
+  .feat{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px dashed var(--linea);}
+  .feat:last-child{border-bottom:none;}
+  .feat .ficon{flex-shrink:0;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--crema);border:1px solid var(--linea);}
+  .feat .ficon svg{width:18px;height:18px;}
+  .feat .ftxt{font-size:.93rem;}
+  .feat .ftxt b{display:block;color:var(--tinta);font-size:.98rem;font-family:'Fraunces',serif;}
+
+  /* CALLOUT */
+  .callout{display:flex;gap:14px;border-radius:14px;padding:18px 20px;margin:20px 0 0;align-items:flex-start;font-size:.94rem;}
+  .callout svg{width:24px;height:24px;flex-shrink:0;}
+  .callout .cbody b{display:block;margin-bottom:3px;font-size:.97rem;}
+  .callout.warn{background:#fdecec;color:#8a3030;}
+  .callout.warn b{color:#c0392b;}
+  .callout.key{background:var(--naranja-suave);color:#7a4a14;}
+  .callout.key b{color:var(--naranja-osc);}
+  .callout.info{background:var(--azul-suave);color:#27405f;}
+  .callout.info b{color:var(--azul);}
+
+  /* PASOS NUMERADOS (ventas/liquidación) */
+  .steps{display:grid;gap:12px;margin-top:22px;}
+  .step{display:flex;gap:15px;align-items:flex-start;background:var(--papel);border:1px solid var(--linea);border-radius:14px;padding:18px 20px;}
+  .step .sn{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,var(--naranja),var(--naranja-osc));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;}
+  .step .sbody h3{font-size:1.05rem;margin-bottom:3px;}
+  .step .sbody p{font-size:.92rem;margin:0;}
+
+  /* TARJETAS DATOS RÁPIDOS */
+  .quick{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:22px;}
+  .qc{border:1px solid var(--linea);border-radius:14px;padding:18px;background:var(--papel);text-align:center;transition:transform .18s,box-shadow .18s;}
+  .qc:hover{transform:translateY(-3px);box-shadow:var(--sombra-sm);}
+  .qc .qico{width:46px;height:46px;border-radius:12px;background:var(--naranja-claro);display:flex;align-items:center;justify-content:center;margin:0 auto 9px;}
+  .qc .qico svg{width:24px;height:24px;}
+  .qc h3{font-size:1rem;margin-bottom:3px;}
+  .qc p{font-size:.85rem;margin:0;}
+
+  /* VENTAS - CANALES */
+  .canales{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:18px;}
+  .canal{border:1px solid var(--linea);border-radius:13px;padding:16px;background:var(--crema);text-align:center;}
+  .canal .cico{width:40px;height:40px;border-radius:11px;background:#fff;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
+  .canal .cico svg{width:21px;height:21px;}
+  .canal b{font-size:.92rem;color:var(--tinta);display:block;}
+  .canal span{font-size:.82rem;color:var(--gris);}
+
+  /* FAQ */
+  details{border:1px solid var(--linea);border-radius:13px;margin-bottom:10px;overflow:hidden;background:var(--papel);transition:border-color .18s;}
+  details[open]{border-color:var(--naranja);box-shadow:var(--sombra-sm);}
+  summary{cursor:pointer;padding:17px 20px;font-weight:600;color:var(--tinta);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:14px;font-size:.97rem;}
+  summary::-webkit-details-marker{display:none;}
+  summary:hover{color:var(--naranja-osc);}
+  .qmark{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--naranja-suave);color:var(--naranja-osc);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem;transition:transform .22s,background .22s;}
+  details[open] .qmark{transform:rotate(45deg);background:var(--naranja);color:#fff;}
+  .answer{padding:0 20px 18px;color:var(--gris);font-size:.92rem;}
+  .answer p{margin-bottom:8px;}
+  .answer p:last-child{margin-bottom:0;}
+
+  /* CIERRE */
+  .closing{background:linear-gradient(155deg,#d8730f,#f88f38);border:none;text-align:center;color:#fff;position:relative;overflow:hidden;}
+  .closing .blob{opacity:.7;}
+  .closing .cl-ico{width:64px;height:64px;border-radius:18px;margin:0 auto 18px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;position:relative;z-index:2;}
+  .closing .cl-ico svg{width:34px;height:34px;}
+  .closing h2{color:#fff;position:relative;z-index:2;}
+  .closing p{color:#fff4e8;position:relative;z-index:2;max-width:540px;margin:14px auto 0;}
+  .closing .sign{font-family:'Fraunces',serif;font-style:italic;font-size:1.2rem;color:#fff;margin-top:22px;position:relative;z-index:2;}
+
+  /* FOOTER */
+  footer{text-align:center;padding:30px 20px 44px;color:var(--gris);font-size:.83rem;}
+  footer .logo{font-family:'Fraunces',serif;font-weight:700;color:var(--azul);font-size:1rem;}
+
+  @media(max-width:680px){
+    .card{padding:32px 22px;}
+    .toc-card{padding:26px 22px;}
+    .toc-grid,.access-row,.quick,.canales{grid-template-columns:1fr;}
+    .hero{padding:52px 20px 140px;}
+    .float-el{display:none;}
+    .sec-head{gap:12px;}
+    .sec-ico{width:48px;height:48px;}
+    .intro-banner{flex-direction:column;text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <!-- pantalla / dashboard -->
+  <svg class="float-el f1" width="50" height="50" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="#fff" stroke-width="1.6"/><path d="M9 21h6M12 17v4" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/><path d="M7 12l3-3 2 2 4-4" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+  <!-- gráfico -->
+  <svg class="float-el f2" width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+  <!-- QR -->
+  <svg class="float-el f3" width="40" height="40" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#fff" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#fff" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#fff" stroke-width="1.6"/><path d="M14 14h3v3M20 14v7M14 21h3" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+
+  <div class="hero-inner">
+    <span class="badge">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="#fff" stroke-width="1.8"/><path d="M9 21h6M12 17v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      Manual del autor · Panel de Autor
+    </span>
+    <h1>Tu libro, siempre <em>a la vista</em></h1>
+    <p class="lead">El Panel de Autor es tu espacio personal dentro de Dunken: seguís tu libro, gestionás ventas y tomás decisiones, todo desde un mismo lugar.</p>
+    <div class="hero-mark">Editorial Dunken · 30 años junto al autor independiente</div>
+  </div>
+  <div class="scroll-cue">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M7 10l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section class="card">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="#d8730f" stroke-width="1.7"/><path d="M9 21h6M12 17v4" stroke="#d8730f" stroke-width="1.7" stroke-linecap="round"/><path d="M7 12l3-3 2 2 4-4" stroke="#d8730f" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+      <div><div class="eyebrow">Tu herramienta de seguimiento</div><h2>Qué es el Panel de Autor</h2></div>
+    </div>
+    <p class="sec-sub lead-intro">El Panel de Autor es <span class="hl">tu espacio personal dentro de Dunken</span>. Es el lugar donde seguís cada etapa de tu libro, ves su avance, gestionás las ventas y tomás decisiones sobre tu obra. Un panel único que <span class="hl">va cambiando según el momento en que esté tu libro</span> — te acompaña desde la producción hasta la vida comercial de tu obra.</p>
+    <div class="intro-banner">
+      <div class="ib-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-2.8L7 19l1-6-4-4 5.6-.7z" stroke="#004aad" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+      <p><b>Pensalo así:</b> el Panel es tu centro de control. En vez de tener que preguntar "¿cómo viene mi libro?", entrás y lo ves. Reduce la ansiedad de la espera y te pone la información al alcance de la mano, cuando vos quieras.</p>
+    </div>
+  </section>
+
+  <!-- ÍNDICE -->
+  <nav class="toc-card">
+    <h4>🖥️ Qué vas a encontrar acá</h4>
+    <div class="toc-grid">
+      <a href="#entrar"><span class="tn">1</span> Cómo entrar a tu Panel</a>
+      <a href="#modos"><span class="tn">2</span> Los dos modos del Panel</a>
+      <a href="#seguimiento"><span class="tn">3</span> Seguir la producción</a>
+      <a href="#ventas"><span class="tn">4</span> Ventas y liquidaciones</a>
+      <a href="#precio"><span class="tn">5</span> Cambio de precio</a>
+      <a href="#faq"><span class="tn">6</span> Preguntas frecuentes</a>
+    </div>
+  </nav>
+
+  <!-- 1. CÓMO ENTRAR -->
+  <section class="card" id="entrar">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="10" rx="2" stroke="#d8730f" stroke-width="1.7"/><path d="M8 11V7a4 4 0 018 0v4" stroke="#d8730f" stroke-width="1.7"/><circle cx="12" cy="16" r="1.5" fill="#f88f38"/></svg></div>
+      <div><div class="eyebrow">El acceso</div><h2>Cómo entrar a tu Panel</h2></div>
+    </div>
+    <p class="sec-sub">Tenés dos formas de ingresar. Las dos te llevan al mismo lugar — elegí la que te resulte más cómoda.</p>
+
+    <div class="access-row">
+      <div class="access">
+        <div class="acico"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1" stroke="#d8730f" stroke-width="1.7"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="#d8730f" stroke-width="1.7"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="#d8730f" stroke-width="1.7"/><path d="M14 14h3v3M20 14v7M14 21h3" stroke="#f88f38" stroke-width="1.9" stroke-linecap="round"/></svg></div>
+        <div class="actag">Opción 1 · La más rápida</div>
+        <h3>Escaneá el código QR</h3>
+        <p>En tu <strong>Orden de Trabajo</strong> hay un código QR. Escanealo con la cámara de tu celular y entrás directo al panel, sin ingresar ningún dato.</p>
+      </div>
+      <div class="access">
+        <div class="acico"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="3" stroke="#d8730f" stroke-width="1.7"/><circle cx="9.5" cy="12" r="1.3" fill="#f88f38"/><circle cx="14.5" cy="12" r="1.3" fill="#f88f38"/><path d="M12 6V3M9 3h6" stroke="#d8730f" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+        <div class="actag">Opción 2 · Pediéndoselo a Gervasio</div>
+        <h3>Escribile a Gervasio</h3>
+        <p>Gervasio, el asistente de IA de Dunken, puede enviarte el acceso a tu panel. Pedíselo y te pasa el enlace directo.</p>
+      </div>
+      <div class="access">
+        <div class="acico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d8730f" stroke-width="1.7"/><path d="M3 12h18M12 3c2.5 2.5 3.5 6 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-6-3.5-9s1-6.5 3.5-9z" stroke="#f88f38" stroke-width="1.7"/></svg></div>
+        <div class="actag">Opción 3 · Desde la web</div>
+        <h3>Ingresá desde dunken.com.ar</h3>
+        <ol>
+          <li>Entrá a <strong>www.dunken.com.ar</strong></li>
+          <li>Andá a <strong>Librería</strong> y buscá tu libro</li>
+          <li>Hacé clic en <strong>"Ver más"</strong></li>
+          <li>Ingresá tu clave en el Panel</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#004aad" stroke-width="1.7"/><path d="M12 11v5" stroke="#004aad" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="8" r="1.2" fill="#004aad"/></svg>
+      <div class="cbody"><b>Tu clave de acceso</b>Si todavía no la cambiaste, tu clave por defecto es <strong>tu correo electrónico</strong>. También vas a recibir por WhatsApp un enlace personal directo a tu panel. Ese enlace es tuyo: te recomendamos no compartirlo públicamente.</div>
+    </div>
+  </section>
+
+  <!-- 2. LOS DOS MODOS -->
+  <section class="card" id="modos">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12a8 8 0 0114-5M20 12a8 8 0 01-14 5" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/><path d="M18 3v4h-4M6 21v-4h4" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div><div class="eyebrow">El concepto clave</div><h2>El Panel cambia con tu libro</h2></div>
+    </div>
+    <p class="sec-sub">El Panel no es siempre igual: se adapta al momento en que está tu libro. Tiene <strong>dos modos</strong>, y pasa de uno al otro de forma automática.</p>
+
+    <!-- MODO SEGUIMIENTO -->
+    <div class="modo seguimiento">
+      <div class="modo-head">
+        <div class="mhico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18L9 9l5 6 3-4 3 6" stroke="#004aad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.6" fill="#004aad"/></svg></div>
+        <div><div class="mhtag">Mientras se produce tu libro</div><div class="mhtitle">Modo seguimiento</div></div>
+      </div>
+      <div class="modo-body">
+        <p class="mintro">Desde que arranca la producción hasta que el libro está impreso, el panel te muestra el avance paso a paso.</p>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18L9 9l5 6 3-4 3 6" stroke="#004aad" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+          <div class="ftxt"><b>Estado y etapa del libro</b>Ves en qué punto está tu obra: diagramación, corrección, impresión, encuadernación.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z" stroke="#004aad" stroke-width="1.7" stroke-linejoin="round"/><path d="M15 3v4h4" stroke="#004aad" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+          <div class="ftxt"><b>Tu Orden de Trabajo</b>Accedés a los datos de tu edición: título, cantidad de ejemplares, páginas, total.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#004aad" stroke-width="1.7"/><path d="M3 10h18M7 15h4" stroke="#004aad" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Facturación y saldo</b>Consultás el estado de tus pagos y si hay algún saldo pendiente o a favor.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="3" stroke="#004aad" stroke-width="1.7"/><circle cx="9.5" cy="12" r="1.3" fill="#004aad"/><circle cx="14.5" cy="12" r="1.3" fill="#004aad"/><path d="M12 6V3M9 3h6" stroke="#004aad" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Asistente con IA</b>Un asistente conectado a la información de tu libro, para resolver dudas al instante.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#004aad" stroke-width="1.7"/><path d="M5 20a7 7 0 0114 0" stroke="#004aad" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Tus datos y redes</b>Cargás tus datos de contacto y redes sociales para difundir tu obra.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODO COMERCIAL -->
+    <div class="modo comercial">
+      <div class="modo-head">
+        <div class="mhico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+        <div><div class="mhtag">Cuando tu libro ya está impreso</div><div class="mhtitle">Modo comercial</div></div>
+      </div>
+      <div class="modo-body">
+        <p class="mintro">Una vez que el libro fue entregado, el panel cambia: ahora es tu herramienta para gestionar la vida comercial de tu obra.</p>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Visualización de ventas</b>Seguís cuántos ejemplares se vendieron y en qué canales.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="3" width="16" height="18" rx="2" stroke="#d8730f" stroke-width="1.7"/><path d="M8 9h8M8 13h8M8 17h5" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Solicitud de liquidación</b>Pedís el cobro de tus ventas directamente desde el panel.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d8730f" stroke-width="1.7"/><path d="M12 7v10M14.5 9.5a2.5 2 0 00-5 .3c0 2.7 5 1.5 5 4.2a2.5 2 0 01-5 .3" stroke="#d8730f" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Cambio de precio</b>Actualizás el precio de venta de tu libro cuando lo necesites.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16H5z" stroke="#d8730f" stroke-width="1.7"/><path d="M8 9h8M8 13h6" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Edición de la sinopsis</b>Modificás el texto de presentación de tu libro en la librería.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v12H7l-3 3z" stroke="#d8730f" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9h6" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+          <div class="ftxt"><b>Reserva de firma en feria</b>Coordinás tu participación en ferias para firmar ejemplares.</div>
+        </div>
+        <div class="feat">
+          <div class="ficon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-2.8L7 19l1-6-4-4 5.6-.7z" stroke="#d8730f" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+          <div class="ftxt"><b>Reseñas de Dunkfluencers</b>Ves si tu libro fue solicitado por colaboradores e influencers de lectura.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SEGUIR LA PRODUCCIÓN -->
+  <section class="card" id="seguimiento">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18L9 9l5 6 3-4 3 6" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="9" r="1.7" fill="#f88f38"/></svg></div>
+      <div><div class="eyebrow">Modo seguimiento</div><h2>Seguir la producción de tu libro</h2></div>
+    </div>
+    <p class="sec-sub">Durante la producción, el panel te muestra el recorrido de tu libro a través de <strong>eventos</strong>: cada vez que tu obra avanza una etapa, el panel se actualiza. Esto te permite saber en qué anda sin tener que preguntar.</p>
+
+    <div class="quick">
+      <div class="qc">
+        <div class="qico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 19l7-7-4-4-7 7v4h4z" stroke="#d8730f" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Diagramación</h3>
+        <p>Tu libro se está diseñando</p>
+      </div>
+      <div class="qc">
+        <div class="qico"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6" stroke="#d8730f" stroke-width="1.8"/><path d="M15 15l5 5" stroke="#d8730f" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>Corrección</h3>
+        <p>En etapa de galeras</p>
+      </div>
+      <div class="qc">
+        <div class="qico"><svg viewBox="0 0 24 24" fill="none"><path d="M6 9V3h12v6M6 18h12v3H6zM4 9h16v7H4z" stroke="#d8730f" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+        <h3>Impresión</h3>
+        <p>Tu libro entró a imprenta</p>
+      </div>
+    </div>
+
+    <div class="callout key">
+      <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="3" stroke="#d8730f" stroke-width="1.7"/><circle cx="9.5" cy="12" r="1.3" fill="#d8730f"/><circle cx="14.5" cy="12" r="1.3" fill="#d8730f"/><path d="M12 6V3M9 3h6" stroke="#d8730f" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <div class="cbody"><b>El asistente con IA, siempre a mano</b>Dentro del panel tenés un asistente con inteligencia artificial conectado a la información de tu libro y de la editorial. Es la forma más rápida de sacarte una duda: podés preguntarle en qué etapa estás, qué sigue, o cualquier dato del proceso, sin esperar una respuesta. Está ahí, en el mismo lugar donde seguís tu obra.</div>
+    </div>
+
+    <div class="callout info">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#004aad" stroke-width="1.7"/><path d="M5 20a7 7 0 0114 0" stroke="#004aad" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <div class="cbody"><b>Cargá tus datos y redes</b>El panel te permite sumar tus datos de contacto y redes sociales. Es útil tenerlos cargados: ayudan a la difusión de tu obra y a que la editorial pueda conectarte con la comunidad de lectores.</div>
+    </div>
+  </section>
+
+  <!-- 4. VENTAS Y LIQUIDACIONES -->
+  <section class="card" id="ventas">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+      <div><div class="eyebrow">Modo comercial</div><h2>Ventas y liquidaciones</h2></div>
+    </div>
+    <p class="sec-sub">Cuando tu libro ya está en circulación, el panel te muestra cómo se está moviendo. Ahí ves tus ventas, el stock disponible y dónde se comercializa tu obra.</p>
+
+    <h3 style="margin-top:24px;margin-bottom:4px;">Dónde se registran tus ventas</h3>
+    <p style="font-size:.93rem;">El panel reúne las ventas de los distintos canales en un solo lugar:</p>
+    <div class="canales">
+      <div class="canal">
+        <div class="cico"><svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16H5z" stroke="#d8730f" stroke-width="1.7"/><path d="M9 4v16" stroke="#d8730f" stroke-width="1.7"/></svg></div>
+        <b>Distribución</b>
+        <span>Editorial y librerías</span>
+      </div>
+      <div class="canal">
+        <div class="cico"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#d8730f" stroke-width="1.7"/><path d="M7 6V4h10v2" stroke="#d8730f" stroke-width="1.7"/></svg></div>
+        <b>Mercado Libre</b>
+        <span>Venta online</span>
+      </div>
+      <div class="canal">
+        <div class="cico"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 5.3L20 9l-4 4 1 6-5-2.8L7 19l1-6-4-4 5.6-.7z" stroke="#d8730f" stroke-width="1.7" stroke-linejoin="round"/></svg></div>
+        <b>Feria del Libro</b>
+        <span>Ventas en ferias</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:26px;margin-bottom:4px;">Cómo pedir tu liquidación</h3>
+    <p style="font-size:.93rem;">Cuando quieras cobrar tus ventas, solicitás la liquidación. Así funciona:</p>
+    <div class="steps">
+      <div class="step">
+        <div class="sn">1</div>
+        <div class="sbody">
+          <h3>Cargá tu CBU en el panel</h3>
+          <p>El pago se hace por transferencia bancaria. El CBU lo cargás —o modificás— directamente en tu Panel de Autor.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">2</div>
+        <div class="sbody">
+          <h3>Solicitá la liquidación desde el panel</h3>
+          <p>Completás un formulario simple. Si ya cargaste tus datos antes, aparecen pre-completados y solo revisás y confirmás.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="sn">3</div>
+        <div class="sbody">
+          <h3>Esperá la transferencia</h3>
+          <p>Una vez aprobada, el pago no es inmediato: al ser un proceso manual, suele demorar algunas semanas en acreditarse.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l9 16H3z" stroke="#c0392b" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9v4M12 16h.01" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="cbody"><b>Las liquidaciones se piden solo desde el panel</b>Es la única vía para solicitar el cobro de tus ventas. No se puede pedir por mail ni por teléfono, ni retirar el dinero en efectivo en la editorial. Si no la solicitás desde el panel, la editorial no tiene forma de saber que querés cobrar — así que este paso es indispensable.</div>
+    </div>
+  </section>
+
+  <!-- 5. CAMBIO DE PRECIO -->
+  <section class="card" id="precio">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d8730f" stroke-width="1.7"/><path d="M12 7v10M14.5 9.5a2.5 2 0 00-5 .3c0 2.7 5 1.5 5 4.2a2.5 2 0 01-5 .3" stroke="#d8730f" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+      <div><div class="eyebrow">Modo comercial</div><h2>Cambiar el precio de tu libro</h2></div>
+    </div>
+    <p class="sec-sub">A medida que tu libro circula, puede que quieras ajustar su precio de venta. Eso también se gestiona desde el panel.</p>
+
+    <div class="callout key">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d8730f" stroke-width="1.7"/><path d="M12 7v10" stroke="#d8730f" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="cbody"><b>Solo se cambia desde el Panel</b>El precio de tu libro se modifica únicamente desde tu Panel de Autor. No se puede cambiar por mail ni por teléfono. El nuevo precio se aplica a todas las ventas futuras.</div>
+    </div>
+
+    <div class="callout info">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="13" r="8" stroke="#004aad" stroke-width="1.7"/><path d="M12 9v4l3 2" stroke="#004aad" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 2h6" stroke="#004aad" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="cbody"><b>El cambio en librerías no es inmediato</b>Cuando actualizás el precio, la editorial notifica a las librerías externas donde está tu libro. Pero cada librería tiene sus propios tiempos para actualizar precios en sus sistemas, así que puede haber una demora hasta que el nuevo precio se refleje en todos lados.</div>
+    </div>
+
+    <div class="callout info">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M5 4h14v16H5z" stroke="#004aad" stroke-width="1.7"/><path d="M9 9l3 3 3-3" stroke="#004aad" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div class="cbody"><b>Cada venta se factura al precio del momento</b>Las ventas se facturan siempre al precio que tenía el libro <strong>cuando se realizó la compra</strong>. Si cambiás el precio después, eso no afecta a las ventas ya hechas: cada una queda registrada con el valor que tenía en su fecha.</div>
+    </div>
+  </section>
+
+  <!-- 6. FAQ -->
+  <section class="card" id="faq">
+    <div class="sec-head">
+      <div class="sec-ico"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#d8730f" stroke-width="1.8"/><path d="M9.5 9.5a2.5 2.5 0 014.5 1.5c0 1.7-2.5 2-2.5 3.5" stroke="#d8730f" stroke-width="1.8" stroke-linecap="round"/><circle cx="11.9" cy="17" r="1.1" fill="#f88f38"/></svg></div>
+      <div><div class="eyebrow">Dudas habituales</div><h2>Preguntas frecuentes</h2></div>
+    </div>
+    <p class="sec-sub">Las consultas que más aparecen sobre el Panel de Autor.</p>
+    <div style="margin-top:20px;">
+      <details>
+        <summary>Olvidé mi clave o no puedo entrar, ¿qué hago?<span class="qmark">+</span></summary>
+        <div class="answer"><p>Si no cambiaste la clave, por defecto es tu correo electrónico. La forma más simple de entrar sin clave es escaneando el QR de tu Orden de Trabajo, que te lleva directo al panel. También podés pedirle el acceso a Gervasio, el asistente de IA de Dunken, que te envía el enlace directo. Si aun así tenés problemas, contactá a la editorial para que te ayuden.</p></div>
+      </details>
+      <details>
+        <summary>¿Puedo compartir el link de mi panel?<span class="qmark">+</span></summary>
+        <div class="answer"><p>El enlace de tu panel es personal. Te recomendamos no compartirlo públicamente, ya que da acceso a la información y la gestión de tu libro. Es para tu uso.</p></div>
+      </details>
+      <details>
+        <summary>Pedí la liquidación pero todavía no me pagaron, ¿es normal?<span class="qmark">+</span></summary>
+        <div class="answer"><p>Sí. Una vez aprobada la liquidación, el pago no es inmediato: es un proceso manual y suele demorar algunas semanas en acreditarse por transferencia. Si pasó bastante tiempo y no tenés novedades, podés consultar con la editorial.</p></div>
+      </details>
+      <details>
+        <summary>¿Por qué no veo todas mis ventas reflejadas?<span class="qmark">+</span></summary>
+        <div class="answer"><p>El panel reúne las ventas de distribución (editorial y librerías), Mercado Libre y ferias. Algunas ventas pueden tardar en registrarse según el canal y los tiempos de cada librería. Si notás algo que no cuadra, consultalo con la editorial.</p></div>
+      </details>
+      <details>
+        <summary>Cambié el precio y en una librería sigue apareciendo el anterior<span class="qmark">+</span></summary>
+        <div class="answer"><p>Es esperable. Cuando cambiás el precio, la editorial notifica a las librerías, pero cada una lo actualiza según sus propios tiempos. Puede haber una demora hasta que el nuevo precio se refleje en todos los puntos de venta. Las ventas, de todos modos, se facturan al precio vigente al momento de cada compra.</p></div>
+      </details>
+      <details>
+        <summary>¿Para qué sirve cargar mis redes sociales en el panel?<span class="qmark">+</span></summary>
+        <div class="answer"><p>Tener tus redes y datos de contacto cargados ayuda a la difusión de tu obra: facilita que la editorial pueda conectar tu libro con la comunidad de lectores y colaboradores. Es un paso simple que suma a la visibilidad de tu trabajo.</p></div>
+      </details>
+      <details>
+        <summary>¿Qué son los Dunkfluencers que aparecen en el panel?<span class="qmark">+</span></summary>
+        <div class="answer"><p>Los Dunkfluencers son lectores y creadores de contenido activos en redes que ayudan a dar visibilidad a los libros de la editorial. En el panel podés ver si tu libro fue solicitado por alguno de ellos para reseñarlo o difundirlo.</p></div>
+      </details>
+      <details>
+        <summary>El panel me muestra cosas distintas que antes, ¿está fallando?<span class="qmark">+</span></summary>
+        <div class="answer"><p>No, es justamente cómo funciona. El panel es dinámico: cambia según la etapa de tu libro. Mientras está en producción ves el seguimiento; cuando ya está impreso y entregado, pasa al modo comercial con ventas y liquidaciones. Si cambió, es porque tu libro avanzó.</p></div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="card closing">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <div class="cl-ico"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="13" rx="2" stroke="#fff" stroke-width="1.9"/><path d="M9 21h6M12 17v4" stroke="#fff" stroke-width="1.9" stroke-linecap="round"/><path d="M7 12l3-3 2 2 4-4" stroke="#fff" stroke-width="1.9" stroke-linejoin="round"/></svg></div>
+    <h2 style="font-size:clamp(1.5rem,3.6vw,2rem);">Tu libro, bajo control</h2>
+    <p>El Panel de Autor está pensado para acompañarte: para que sepas siempre en qué anda tu obra y puedas tomar decisiones con tranquilidad. Familiarizate con él, va a ser tu mejor aliado en todo el camino.</p>
+    <p class="sign">Todo tu libro, en un solo lugar.</p>
+  </section>
+
+</div>
+
+<footer>
+  <p class="logo">Editorial Dunken</p>
+  <p>30 años al servicio del autor independiente · Manual del Panel de Autor</p>
+</footer>
+
+</body>
+</html>
