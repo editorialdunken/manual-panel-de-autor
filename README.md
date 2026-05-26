@@ -1,0 +1,1 @@
+# manual-panel-de-autor
